@@ -15,7 +15,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message *</label>
-                        <textarea name="message" rows="5" placeholder="Tell us about your project *"></textarea>
+                        <textarea name="message" rows="5" required placeholder="Tell us about your project *"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="link">Website address and/or social link</label>
@@ -26,8 +26,6 @@
                         <input type="text" name="referral" placeholder="How did you hear about us?" />
                     </div>
 
-
-
                     <button class="btn">Submit</button>
                 </form>
             </div>
@@ -35,7 +33,7 @@
                 <p>Thanks for reaching out! Your message has been submitted.</p>
             </div>
             <div v-if="showError" class="error-wrapper">
-                <p>Sorry, something has gone wrong. Please try again later, or send an email to sarahriazati@gmail.com.</p>
+                <p>Sorry, something has gone wrong. Please try again later, or send an email to hello@otherlove.co</p>
             </div>
         </div>
     </div>
@@ -96,8 +94,13 @@ form {
 }
 
 button {
-    display: flex;
     margin-top: 50px;
+    background: #181818;
+    transition: all .3s ease;
+    color: $cloud;
+    border-radius: 20px;
+    padding: 10px 20px;
+    align-self: flex-start;
 }
 </style>
 

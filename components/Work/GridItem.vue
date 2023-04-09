@@ -61,7 +61,10 @@ const setTitlePosition = (x, y) => {
         transition: 0.5s ease opacity;
         background: rgba($light, 0.9);
         @include flexCenter;
-        padding: $spacer;
+
+        @media (min-width: $collapse-bp) {
+            padding: $spacer;
+        }
 
         h2 {
             @include fontDmSans;

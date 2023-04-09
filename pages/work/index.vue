@@ -31,6 +31,12 @@ const { data } = await useSanityQuery(query);
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
     grid-gap: 100px;
+
+    @media (max-width: $collapse-bp) {
+        grid-template-columns: 1fr;
+        grid-gap: 15px;
+    }
+
     padding-bottom: 100px;
 }
 </style>

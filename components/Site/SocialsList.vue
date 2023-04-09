@@ -29,9 +29,12 @@ header .collapsible {
         margin-bottom: 30px;
     }
 
+    li {
+        padding: 5px;
+    }
+
     a {
         color: $cloud;
-        padding: 5px;
         font-size: 14px;
         line-height: 20px;
     }

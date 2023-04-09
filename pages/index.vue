@@ -50,6 +50,10 @@ definePageMeta({
 
   >section {
     grid-column: 1 / span 4;
+
+    @media (max-width: $collapse-bp) {
+      grid-column: 1/span 10;
+    }
   }
 
   h2 {
