@@ -17,7 +17,15 @@
     }
 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    @media (min-width:$collapse-bp) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width:$collapse-bp) {
+        grid-template-columns: 1fr;
+    }
+
     width: 50vw;
 
     h2 {
