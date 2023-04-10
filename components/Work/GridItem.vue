@@ -18,19 +18,23 @@ const props = defineProps(['item'])
 
 const title = ref()
 const wrapper = ref();
-
+const isTrackingMouse = ref(false);
 const mouseEnter = (event) => {
     title.value.style.position = "absolute";
     title.value.style.whitespace = "nowrap";
+    isTrackingMouse.value = true;
 }
 const mouseLeave = (event) => {
     title.value.style.position = "static";
     title.value.style.top = "unset";
     title.value.style.left = "unset";
     title.value.style.whitespace = "normal";
+    isTrackingMouse.value = false;
 }
 const mouseMove = (event) => {
-    setTitlePosition(event.clientX, event.clientY);
+    if (isTrackingMouse.value) {
+        setTitlePosition(event.clientX, event.clientY);
+    }
 }
 const setTitlePosition = (x, y) => {
     const titleW = title.value.offsetWidth;

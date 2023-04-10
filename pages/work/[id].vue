@@ -5,22 +5,20 @@
             <Title>{{ data.name }}</Title>
         </Head>
         <div>
-            <div class="wrapper">
-                <div class="fixed-content-wrapper">
+            <div class="wrapper" ref="wrapper">
+                <div class="fixed-content-wrapper" ref="textWrapper">
                     <div class="text-wrapper">
-                        <div class="grid-fixed">
-                            <h1>{{ data.name }}</h1>
-                            <ul v-if="data.category" class="categories-wrapper">
-                                <li v-for="item in data.category" :key="item.id">
-                                    {{ item.name }}
-                                </li>
-                            </ul>
-                            <p>{{ data.description }}</p>
-                        </div>
+                        <h1>{{ data.name }}</h1>
+                        <ul v-if="data.category" class="categories-wrapper">
+                            <li v-for="item in data.category" :key="item.id">
+                                {{ item.name }}
+                            </li>
+                        </ul>
+                        <p>{{ data.description }}</p>
                     </div>
                 </div>
                 <div class="gallery-wrapper">
-                    <ul class="grid-fixed">
+                    <ul>
                         <li v-for="item in data.gallery" :key="item.id">
                             <SystemImage :image="item.asset"></SystemImage>
                         </li>
@@ -32,6 +30,8 @@
 </template>
 
 <script setup>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const query = groq`
 *[_type=="projects" && slug.current == $slug][0]{
@@ -43,35 +43,51 @@ const query = groq`
 const route = useRoute()
 const { data } = await useSanityQuery(query, { slug: route.params.id })
 
+// const wrapper = ref();
+// const textWrapper = ref();
+// const ctx = ref();
+// const setPinAnimation = () => {
+//     ctx.value = gsap.context(() => {
+//         ScrollTrigger.create({
+//             trigger: wrapper.value,
+//             start: "top top",
+//             markers: true,
+//             pin: true
+//         });
+//     }, wrapper.value);
+// }
 onMounted(() => {
-    if (data.value.bgColor.hex) {
+    if (data.value.bgColor?.hex) {
         const body = document.querySelector('.layout-default');
         if (body) {
             body.style.backgroundColor = data.value.bgColor.hex
         }
     }
+
+    // setPinAnimation();
 })
 
 onUnmounted(() => {
-    if (data.value.bgColor.hex) {
+    if (data.value.bgColor?.hex) {
         const body = document.querySelector('.layout-default');
         if (body) {
             body.style.backgroundColor = '#fff'
         }
     }
+    // ctx.value.revert();
 })
 </script>
 <style lang="scss" scoped>
 .wrapper {
-    @include contained;
     padding-bottom: 100px;
     min-height: 100vh;
 }
 
 .fixed-content-wrapper {
     position: fixed;
-    bottom: 60px;
-    left: 5%;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 h1 {
@@ -117,17 +133,17 @@ a {
     border-bottom: 1px solid black;
 }
 
-.text-wrapper .grid-fixed {
 
-    * {
-        padding-right: $spacer*1.5;
-        grid-column: 1 / span 6;
-    }
+
+.text-wrapper {
+    padding-bottom: 60px;
+    padding-left: 5%;
+    width: 50%;
+    padding-right: 15px;
 }
 
-.gallery-wrapper .grid-fixed {
-    li {
-        grid-column: 7 / span 6;
-    }
+.gallery-wrapper {
+    width: 50%;
+    margin-left: 50%;
 }
 </style>
